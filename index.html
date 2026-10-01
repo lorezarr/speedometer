@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Speedometer</title>
+    <style>
+        body {
+            margin: 0;
+            background: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            user-select: none;
+        }
+        .speedometer-container {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 220px;
+            height: 220px;
+            background: rgba(15, 15, 20, 0.75);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .speed-value {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .speed-unit {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: -5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="speedometer-container">
+        <div class="speed-value" id="speed">0</div>
+        <div class="speed-unit">km/h</div>
+    </div>
+
+    <script>
+        cef.on('update_speed', (speed) => {
+            document.getElementById('speed').innerText = Math.round(speed);
+        });
+    </script>
+</body>
+</html>
