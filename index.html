@@ -1,56 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Speedometer</title>
-    <style>
-        body {
-            margin: 0;
-            background: transparent;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
-            user-select: none;
-        }
-        .speedometer-container {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 220px;
-            height: 220px;
-            background: rgba(15, 15, 20, 0.75);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        .speed-value {
-            font-size: 52px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        .speed-unit {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: -5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>GOLDEN BAKU Speedometer</title>
+<style>
+  :root { --glass: rgba(13,17,23,.85); --gold: #e3b341; --text: #f2f4f7; --muted: #9aa4b2; }
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--text); user-select: none; }
+
+  #speedo { position: fixed; bottom: 40px; right: 40px; width: 150px; height: 150px; border-radius: 50%;
+    background: var(--glass); border: 3px solid var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #speedVal { font-size: 52px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  #speedo small { margin-top: 4px; font-size: 14px; color: var(--muted); }
+</style>
 </head>
 <body>
 
-    <div class="speedometer-container">
-        <div class="speed-value" id="speed">0</div>
-        <div class="speed-unit">km/h</div>
-    </div>
+<div id="speedo">
+  <div id="speedVal">0</div>
+  <small>км/ч</small>
+</div>
 
-    <script>
-        cef.on('update_speed', (speed) => {
-            document.getElementById('speed').innerText = Math.round(speed);
-        });
-    </script>
+<script>
+  if (window.cef) {
+    // Сервер шлёт одно число: скорость в км/ч
+    cef.on('update_speed', function (speed) {
+      document.getElementById('speedVal').textContent = Math.round(speed);
+    });
+  } else {
+    // В обычном браузере: пример, чтобы увидеть внешний вид
+    document.getElementById('speedVal').textContent = 87;
+  }
+</script>
 </body>
 </html>
